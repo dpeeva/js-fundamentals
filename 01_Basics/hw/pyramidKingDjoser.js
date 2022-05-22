@@ -1,8 +1,6 @@
 // 80 of 100 points
-function solve(a, step) {
-    const base = a // width and length
-    let increment = step // height
-
+function solve(base, step) {
+    let increment = step
     let stone = 0
     let marble = 0
     let lapisLazuli = 0
@@ -13,53 +11,39 @@ function solve(a, step) {
     let currentStone = 0
     let currentMarble = 0
     let currentLapis = 0
-    let currentGold = 0
 
     let nextCurrentBase = base
     let row = 0
 
-    while (currentBase >= 1) {
+    while (currentBase > 2) {
         row++
         nextCurrentBase -= 2
         outerLayer = 2 * currentBase + 2 * (currentBase - 2)
 
-        if (row % 5 === 0) { // every 5th row
-            if (nextCurrentBase < step) { // last row
-                currentGold = currentBase * currentBase
-                gold += currentGold * step
-                break
-            } else {
-                currentLapis = outerLayer
-            }
-        } else {
-            if (nextCurrentBase < step) { // last row
-                currentGold = currentBase * currentBase
-                gold += currentGold * step
-                break
-            } else {
-                currentMarble = outerLayer
-            }
+        if (nextCurrentBase < step) { // last row
+            break
         }
 
-        if (nextCurrentBase < step) { // last row
-            currentGold = currentBase * currentBase
-            gold += currentGold * step
-            break
+        if (row % 5 === 0) { // every 5th row
+            currentLapis = outerLayer
         } else {
-            currentStone = currentBase * currentBase - outerLayer
+            currentMarble = outerLayer
         }
+        currentStone = currentBase * currentBase - outerLayer
 
         increment--
         currentBase = nextCurrentBase
 
-        stone += (currentStone * step)
-        marble += (currentMarble * step)
-        lapisLazuli += (currentLapis * step)
+        stone += currentStone * step
+        marble += currentMarble * step
+        lapisLazuli += currentLapis * step
 
         currentStone = 0
         currentMarble = 0
         currentLapis = 0
     }
+    row++
+    gold += (currentBase * currentBase) * step
 
     console.log(`Stone required: ${Math.round(stone)}`)
     console.log(`Marble required: ${Math.round(marble)}`)
