@@ -21,7 +21,10 @@ function solve(ints, commandsArr) {
             return arr
         },
         "shift": (arr, positions) => {
-            const count = Number(positions)
+            let count = Number(positions)
+            if (count > arr.length) {
+                count = count % arr.length
+            }
             const shifted = arr.slice(count)
             shifted.push(Number(arr.slice(0, count)))
             return shifted
@@ -85,3 +88,12 @@ solve(
 )
 // -1
 // [ 2, 3, 5, 9, 8, 7, 6, 5, 1 ]
+
+
+// Borderline cases
+solve(
+    [2, 3],
+    ['shift 11', 'addMany 5 9 8 7 6 5', 'contains 8', 'remove 3', 'print']
+)
+// 3
+// [ 3, 2, 9, 7, 6, 5 ]
