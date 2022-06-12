@@ -8,6 +8,13 @@ function solve(ints, commandsArr) {
         },
         "addMany": (arr, elements, index) => {
             const addElements = elements.map(e => Number(e))
+
+            if (index >= arr.length) {
+                arr[index] = undefined
+                arr.splice(index, 1, ...addElements)
+                return arr
+            }
+
             arr.splice(index, 0, ...addElements)
             return arr
         },
@@ -22,9 +29,15 @@ function solve(ints, commandsArr) {
         },
         "shift": (arr, positions) => {
             let count = Number(positions)
+
             if (count > arr.length) {
                 count = count % arr.length
             }
+
+            if (count === 0) {
+                return arr
+            }
+
             const shifted = arr.slice(count)
             shifted.push(Number(arr.slice(0, count)))
             return shifted
@@ -69,8 +82,14 @@ function solve(ints, commandsArr) {
             commands[command](result)
             break
         }
-        result = commands[command](...params[command](result, options))
+        result = commands[command](
+            ...params[command](result, options)
+        )
         commandsArr.splice(0, 1)
+    }
+
+    if (!commandsArr.length) {
+        console.log(`[ ${result.join(", ")} ]`)
     }
 }
 
@@ -97,3 +116,21 @@ solve(
 )
 // 3
 // [ 3, 2, 9, 7, 6, 5 ]
+
+solve(
+    [],
+    []
+)
+// []
+
+solve(
+    [1],
+    []
+)
+// [ 1 ]
+
+solve(
+    [1],
+    ['shift 11', 'addMany 5 9 8 7 6 5']
+)
+// [ 1, , , , , 9, 8, 7, 6, 5 ]
