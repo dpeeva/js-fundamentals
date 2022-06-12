@@ -1,4 +1,3 @@
-// 80 of 100 points
 function solve(base, step) {
     let increment = step
     let stone = 0
@@ -6,33 +5,33 @@ function solve(base, step) {
     let lapisLazuli = 0
     let gold = 0
 
-    let currentBase = base
     let outerLayer = 0
     let currentStone = 0
     let currentMarble = 0
     let currentLapis = 0
 
-    let nextCurrentBase = base
-    let row = 0
+    let nextBase = base
+    let rows = 0
 
-    while (currentBase > 2) {
-        row++
-        nextCurrentBase -= 2
-        outerLayer = 2 * currentBase + 2 * (currentBase - 2)
+    while (base > 2) {
+        rows++
+        nextBase -= 2
+        outerLayer = base * 4 - 4 // 2 * base + 2 * (base - 2)
 
-        if (nextCurrentBase < step) { // last row
+        if (nextBase < step) { // last row
+            // rows++ // TODO: why not working when steped here?
             break
         }
 
-        if (row % 5 === 0) { // every 5th row
+        if (rows % 5 === 0) { // every 5th row
             currentLapis = outerLayer
         } else {
             currentMarble = outerLayer
         }
-        currentStone = currentBase * currentBase - outerLayer
+        currentStone = base * base - outerLayer
 
         increment--
-        currentBase = nextCurrentBase
+        base = nextBase
 
         stone += currentStone * step
         marble += currentMarble * step
@@ -42,14 +41,14 @@ function solve(base, step) {
         currentMarble = 0
         currentLapis = 0
     }
-    row++
-    gold += (currentBase * currentBase) * step
+    rows++ // TODO: why need to increment it here to work?
+    gold += (base * base) * step
 
-    console.log(`Stone required: ${Math.round(stone)}`)
-    console.log(`Marble required: ${Math.round(marble)}`)
-    console.log(`Lapis Lazuli required: ${Math.round(lapisLazuli)}`)
-    console.log(`Gold required: ${Math.round(gold)}`)
-    console.log(`Final pyramid height: ${Math.floor(row * step)}`)
+    console.log(`Stone required: ${Math.ceil(stone)}`)
+    console.log(`Marble required: ${Math.ceil(marble)}`)
+    console.log(`Lapis Lazuli required: ${Math.ceil(lapisLazuli)}`)
+    console.log(`Gold required: ${Math.ceil(gold)}`)
+    console.log(`Final pyramid height: ${Math.floor(rows * step)}`)
 }
 
 solve(11, 1)
