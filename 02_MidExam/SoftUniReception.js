@@ -1,8 +1,17 @@
 function solve(input) {
     const efficiency = Number(input[0]) + Number(input[1]) + Number(input[2])
     let students = Number(input[3])
-    let time = Math.ceil(students / efficiency)
-    time += (Math.ceil(time / 3) - 1)
+    let time = 0
+    let index = 1
+
+    while (students > 0) {
+        if (index % 4 !== 0) {
+            students -= efficiency
+        }
+        time++
+        index++
+    }
+
     console.log(`Time needed: ${time}h.`)
 }
 
