@@ -12,15 +12,15 @@ function solve(input) {
             break
         }
         distance = Number(current)
-        energy -= distance
-        if (energy < 0) {
-            energy = 0
-            console.log(`Not enough energy! Game ends with ${won} won battles and ${energy} energy`)
-        } else {
+        if (energy >= distance) {
+            energy -= distance
             won++
-            if (won !== 0 && won % 3 === 0) {
+            if (won % 3 === 0) {
                 energy += won
             }
+        } else {
+            console.log(`Not enough energy! Game ends with ${won} won battles and ${energy} energy`)
+            return
         }
     }
 }
