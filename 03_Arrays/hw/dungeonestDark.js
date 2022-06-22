@@ -24,20 +24,22 @@ function solve(input) {
             console.log(`You healed for ${n} hp.`)
             console.log(`Current health: ${health} hp.`)
             continue
-        } else if (word === "chest") {
+        }
+        if (word === "chest") {
             coins += n
             console.log(`You found ${n} coins.`)
             continue
-        } else {
-            health -= n
-            if (health > 0) {
-                console.log(`You slayed ${word}.`)
-            } else {
-                console.log(`You died! Killed by ${word}.`)
-                console.log(`Best room: ${roomsVisited}`)
-                break
-            }
         }
+
+        health -= n
+        if (health > 0) {
+            console.log(`You slayed ${word}.`)
+        } else {
+            console.log(`You died! Killed by ${word}.`)
+            console.log(`Best room: ${roomsVisited}`)
+            return
+        }
+
     }
 
     if (roomsVisited === totalRooms) {
