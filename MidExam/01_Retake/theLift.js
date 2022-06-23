@@ -4,23 +4,23 @@ function solve(input) {
     let waiting = Number(input[0])
     const lift = input[1].split(" ").map(Number)
 
-    let index = 0
+    let index = 1
     let isFull = false
 
-    while (index < people) {
+    while (index <= people) {
+        if (isFull) {
+            break
+        }
         for (let wagon = 0; wagon < lift.length; wagon++) {
+            if (wagon === lift.length - 1 && lift[wagon] === 4) {
+                isFull = true
+                break
+            }
             if (lift[wagon] < 4) {
                 lift[wagon] += 1
                 waiting--
                 break
             }
-            if (wagon === lift.length - 1 && lift[wagon] === 4) {
-                isFull = true
-            }
-        }
-
-        if (isFull) {
-            break
         }
         index++
     }
