@@ -19,47 +19,41 @@ function solve(input) {
 
     let command = ""
     let bugIndex = 0
-    let targetIndex = 0
+    let step = 0
     let dir = ""
-    let fly = 0
+    let targetIndex = 0
 
     for (let i = 0; i < length; i++) {
         command = commands[i].split(" ")
         bugIndex = Number(command[0])
         dir = command[1]
-        targetIndex = Number(command[2])
+        step = Number(command[2])
 
         if (bugIndex < 0 || bugIndex > size - 1) {
             continue
         }
+        field.splice(bugIndex, 1, 0)
 
-        if (dir === "right") {
-            fly = bugIndex + targetIndex
-        }
-        if (dir === "left") {
-            fly = bugIndex - targetIndex
-        }
+        targetIndex = dir === "left" ? (bugIndex - step) : (bugIndex + step)
 
-        if (fly < 0 || fly > size - 1) {
-            field.splice(bugIndex, 1, 0)
+        if (targetIndex < 0 || targetIndex > size - 1) {
             continue
         }
 
-        while (fly >= 0 && fly <= size - 1) {
-            field.splice(bugIndex, 1, 0)
-            if (field[fly] === 1) {
+        while (targetIndex >= 0 && targetIndex <= size - 1) {
+            if (field[targetIndex] === 1) {
                 // BUG INSIDE
                 if (dir === "right") {
-                    fly += targetIndex
+                    targetIndex += step
                 }
                 if (dir === "left") {
-                    fly -= targetIndex
+                    targetIndex -= step
                 }
                 continue
             }
             else {
                 // PLACING BUG
-                field[fly] = 1
+                field[targetIndex] = 1
                 break
             }
         }
@@ -86,3 +80,30 @@ solve([
     '3 left 2',
     '1 left -2'
 ]) // 0 0 0 1 0
+
+// Borderline cases
+
+solve([
+    3, '0 1',
+    '0 right 1'
+]) // 0 1 1
+
+solve([
+    3, '0 1',
+    '0 left 1'
+]) // 0 1 0
+
+solve([
+    3, '0 1',
+    '0 left -1'
+]) // 0 1 1
+
+solve([
+    0, '0 1',
+    '0 left -1'
+]) // 
+
+solve([
+    2, '0 1',
+    '0 right -10'
+]) // 0 1
