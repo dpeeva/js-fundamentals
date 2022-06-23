@@ -1,29 +1,36 @@
-// 90 of 100
 function solve(input) {
     const people = Number(input[0])
-    let waiting = Number(input[0])
-    const lift = input[1].split(" ").map(Number)
+    let lift = input[1].split(" ").map(Number)
 
-    let index = 1
-    let isFull = false
+    const capacity = lift.length * 4
+    const used = lift.reduce(
+        (previousValue, currentValue) => previousValue + currentValue,
+        0
+    )
+    const available = capacity - used
+    let waiting = 0
+    let freeSpots = 0
 
-    while (index <= people) {
-        if (isFull) {
-            break
+    if (people >= available) {
+        waiting = people - available
+        lift = lift.map(wagon => wagon = 4)
+    } else {
+        waiting = 0
+        freeSpots = available - people
+
+        let places = people
+        let index = 0
+        let free = 0
+
+        while (places > 0) {
+            free = places > 4 ? (4 - lift[index]) : places
+            lift[index] += free
+            places -= free
+            index++
         }
-        for (let wagon = 0; wagon < lift.length; wagon++) {
-            if (wagon === lift.length - 1 && lift[wagon] === 4) {
-                isFull = true
-                break
-            }
-            if (lift[wagon] < 4) {
-                lift[wagon] += 1
-                waiting--
-                break
-            }
-        }
-        index++
     }
+
+    let isFull = lift.find(wagon => wagon < 4) === undefined
 
     if (isFull) {
         if (waiting > 0) {
@@ -39,7 +46,7 @@ solve([
     "15",
     "0 0 0 0 0"
 ])
-// The lift has empty spaces!
+// The lift has empty spots!
 // 4 4 4 3 0
 
 solve([
@@ -48,3 +55,25 @@ solve([
 ])
 // There isn't enough space! 10 people in a queue!
 // 4 4 4
+
+// Borderline cases
+
+solve([
+    "20",
+    "4 4 4"
+])
+// There isn't enough space! 20 people in a queue!
+// 4 4 4
+
+solve([
+    "0",
+    "4 4 4"
+])
+// 4 4 4
+
+solve([
+    "0",
+    "0 0"
+])
+// The lift has empty spots!
+// 0 0
