@@ -1,4 +1,4 @@
-// 30 of 100
+// 90 of 100
 function solve(input) {
     const targets = input[0].split(" ").map(Number)
     const commands = input.slice(1)
@@ -35,7 +35,7 @@ function solve(input) {
             currentIndex = Number(command[1])
             value = Number(command[2])
             if (isValidIndex(currentIndex, targets)) {
-                target.splice(currentIndex, 0, value)
+                targets.splice(currentIndex, 0, value)
             } else {
                 console.log(`Invalid placement!`)
             }
