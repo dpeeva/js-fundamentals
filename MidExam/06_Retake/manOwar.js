@@ -1,4 +1,3 @@
-// 90 of 100
 function solve(input) {
     const pirateship = input[0].split(">").map(Number)
     const warship = input[1].split(">").map(Number)
@@ -20,63 +19,61 @@ function solve(input) {
         let index = 0
         let damage = 0
 
-        switch (command) {
-            case "Fire":
-                index = values[0]
-                damage = values[1]
+        if (command === "Fire") {
+            index = values[0]
+            damage = values[1]
 
-                if (!isValidIndex(index, warship.length)) {
-                    line = commands.shift()
-                    continue
-                }
-                warship[index] -= damage
-                if (warship[index] <= 0) {
-                    console.log(`You won! The enemy ship has sunken.`)
+            if (!isValidIndex(index, warship.length)) {
+                line = commands.shift()
+                continue
+            }
+            warship[index] -= damage
+            if (warship[index] <= 0) {
+                console.log(`You won! The enemy ship has sunken.`)
+                return
+            }
+        }
+
+        if (command === "Defend") {
+            const startIndex = values[0]
+            const endIndex = values[1]
+            damage = values[2]
+
+
+            if (!isValidIndex(startIndex, pirateship.length) ||
+                !isValidIndex(endIndex, pirateship.length)
+            ) {
+                line = commands.shift()
+                continue
+            }
+            for (let i = startIndex; i <= endIndex; i++) {
+                pirateship[i] -= damage
+                if (pirateship[i] <= 0) {
+                    console.log(`You lost! The pirate ship has sunken.`)
                     return
                 }
-                break
+            }
+        }
 
-            case "Defend":
-                const startIndex = values[0]
-                const endIndex = values[1]
-                damage = values[2]
+        if (command === "Repair") {
+            index = values[0]
+            const health = values[1]
+            if (!isValidIndex(index, pirateship.length)) {
+                line = commands.shift()
+                continue
+            }
 
+            const missingCapacity = capacity - pirateship[index]
+            pirateship[index] += health <= missingCapacity ? health : missingCapacity
+        }
 
-                if (!isValidIndex(startIndex, pirateship.length) ||
-                    !isValidIndex(endIndex, pirateship.length)
-                ) {
-                    line = commands.shift()
-                    continue
-                }
-                for (let i = startIndex; i <= endIndex; i++) {
-                    pirateship[i] -= damage
-                    if (pirateship[i] <= 0) {
-                        console.log(`You lost! The pirate ship has sunken.`)
-                        return
-                    }
-                }
-                break
-
-            case "Repair":
-                index = values[0]
-                const health = values[1]
-                if (!isValidIndex(index, pirateship.length)) {
-                    continue
-                }
-
-                const missingCapacity = capacity - pirateship[index]
-                pirateship[index] += health <= missingCapacity ? health : missingCapacity
-                break
-
-            case "Status":
-                const count = pirateship.filter(item => item < minimum).length
-                console.log(`${count} sections need repair.`)
-                break
+        if (command === "Status") {
+            const count = pirateship.filter(item => item < minimum).length
+            console.log(`${count} sections need repair.`)
         }
 
         line = commands.shift()
     }
-
 
     let pirateSum = pirateship.reduce((a, b) => a + b, 0)
     let warshipSum = warship.reduce((a, b) => a + b, 0)
