@@ -1,4 +1,3 @@
-// 90 of 100
 function solve(input) {
     const friends = input[0].split(", ")
     const commands = input.slice(1)
@@ -9,6 +8,7 @@ function solve(input) {
     let name = ""
     let index = -1
     let currentIndex = 0
+    const isValidIndex = (arr, index) => index >= 0 && index < arr.length
 
     while (command !== "Report") {
         data = line.split(" ")
@@ -27,8 +27,7 @@ function solve(input) {
 
         if (command === "Error") {
             currentIndex = data[0]
-            let isValid = currentIndex >= 0 && currentIndex < friends.length
-            if (isValid) {
+            if (isValidIndex(friends, currentIndex)) {
                 name = friends[currentIndex]
                 if (name !== "Blacklisted" && name !== "Lost") {
                     friends.splice(currentIndex, 1, "Lost")
@@ -39,8 +38,7 @@ function solve(input) {
 
         if (command === "Change") {
             currentIndex = data[0]
-            let isValid = currentIndex >= 0 && currentIndex < friends.length - 1
-            if (isValid) {
+            if (isValidIndex(friends, currentIndex)) {
                 let newName = data[1]
                 name = friends[currentIndex]
                 friends.splice(currentIndex, 1, newName)
