@@ -1,2 +1,32 @@
 https://judge.softuni.org/Contests/Compete/Index/3477
 password: mid_exam
+
+Exam version 01
+
+01. The Biscuit Factory
+02. Coffee Lover
+03. The Angry Cat
+
+Exam version 02
+
+01. Burger Bus
+02. Numbers
+03. Deck of Cards
+
+Exam version 03 
+
+01. Cooking Masterclass
+02. Friend List Maintenance
+03. Chat Logger
+
+Exam version 04 
+
+01. Experience Gaining
+02. Tax Calculator
+03. Phone Shop
+
+Exam version 05 
+
+01. The Hunting Games
+02. Space Travel
+03. School Library
