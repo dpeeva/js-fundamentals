@@ -1,18 +1,21 @@
-// 80 of 100
 function solve(input) {
-    const terms = []
+    let dict = new Map()
+    let line
     for (let i = 0; i < input.length; i++) {
-        terms.push(JSON.parse(input[i]))
+        line = JSON.parse(input[i])
+        Object.keys(line).map(key => {
+            dict.set(key, line[key])
+        })
     }
-    terms.map(term => Object.keys(term)[0])
-        .sort((a, b) => a.localeCompare(b))
-        .map(key => terms.find(term => {
-            if (Object.keys(term)[0] === key) {
-                console.log(
-                    `Term: ${key} => Definition: ${term[key]}`
-                )
-            }
-        }))
+
+    // sort by key
+    dict = new Map([...dict.entries()].sort())
+
+    dict.forEach((value, key) => {
+        console.log(
+            `Term: ${key} => Definition: ${value}`
+        )
+    })
 }
 
 solve([
@@ -36,6 +39,21 @@ solve([
     '{"Art":"The expression or application of human creative skill and imagination, typically in a visual form such as painting or sculpture, producing works to be appreciated primarily for their beauty or emotional power."} '
 ])
 // Term: Art => Definition: The expression or application of human creative skill and imagination, typically in a visual form such as painting or sculpture, producing works to be appreciated primarily for their beauty or emotional power.
+// Term: Cake => Definition: An item of soft sweet food made from a mixture of flour, fat, eggs, sugar, and other ingredients, baked and sometimes iced or decorated.
+// Term: Cup => Definition: A small bowl-shaped container for drinking from, typically having a handle
+// Term: Music => Definition: Vocal or instrumental sounds (or both) combined in such a way as to produce beauty of form, harmony, and expression of emotion.
+// Term: Watermelon => Definition: The large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice.
+
+// Borderline cases - duplicate keys
+solve([
+    '{"Cup":"A small bowl-shaped container for drinking from, typically having a handle"}',
+    '{"Cake":"An item of soft sweet food made from a mixture of flour, fat, eggs, sugar, and other ingredients, baked and sometimes iced or decorated."} ',
+    '{"Watermelon":"The large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice."} ',
+    '{"Music":"Vocal or instrumental sounds (or both) combined in such a way as to produce beauty of form, harmony, and expression of emotion."} ',
+    '{"Art":"The expression or application of human creative skill and imagination, typically in a visual form such as painting or sculpture, producing works to be appreciated primarily for their beauty or emotional power."} ',
+    '{"Art":"Duplicate definition."} '
+])
+// Term: Art => Definition: Duplicate definition.
 // Term: Cake => Definition: An item of soft sweet food made from a mixture of flour, fat, eggs, sugar, and other ingredients, baked and sometimes iced or decorated.
 // Term: Cup => Definition: A small bowl-shaped container for drinking from, typically having a handle
 // Term: Music => Definition: Vocal or instrumental sounds (or both) combined in such a way as to produce beauty of form, harmony, and expression of emotion.
