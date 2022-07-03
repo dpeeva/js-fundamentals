@@ -1,4 +1,23 @@
+class Storage {
+    constructor(capacity) {
+        this.capacity = capacity
+        this.storage = []
+        this.totalCost = 0
+    }
+
+    addProduct(product) {
+        this.storage.push(product)
+        this.capacity -= product.quantity
+        this.totalCost += product.price * product.quantity
+    }
+    getProducts() {
+        const result = this.storage.map(e => JSON.stringify(e))
+        return result.join("\n")
+    }
+}
+
 // 75 of 100
+/*
 class Storage {
     constructor(capacity) {
         this.capacity = capacity
@@ -18,6 +37,7 @@ class Storage {
         return result.join("\n")
     }
 }
+*/
 
 // Test 1
 let productOne = { name: 'Cucamber', price: 1.50, quantity: 15 }
