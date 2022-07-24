@@ -1,4 +1,3 @@
-// 87 of 100
 function solve(input) {
     let message = input[0]
     const commands = input.slice(1)
@@ -25,7 +24,7 @@ function solve(input) {
             const index = message.indexOf(data[1])
             if (index !== -1) {
                 const reversed = data[1].split("").reverse().join("")
-                message = [message.slice(0, index), reversed, message.slice(index + reversed.length)].join("")
+                message = [message.slice(0, index), message.slice(index + reversed.length), reversed].join("")
                 console.log(message)
             } else {
                 console.log("error")
