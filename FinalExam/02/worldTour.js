@@ -1,11 +1,12 @@
 function solve(input) {
     let stops = input[0]
     let commands = input.slice(1)
+
     line = commands.shift()
     let data = []
     let command = ""
 
-    const isValidIndex = (index, arr) => index >= 0 && index < stops.length
+    const isValidIndex = (index, arr) => index >= 0 && index < arr.length
 
     while (commands.length > 0) {
         if (line === "Travel") {
