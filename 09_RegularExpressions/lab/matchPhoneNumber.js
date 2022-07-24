@@ -1,13 +1,13 @@
 function solve(input) {
     // need to escape the escaping symbol \ in every string
-    const matchCode = "?<phone>\\+359"
+    const matchCode = "\\+359"
     const matchSeparator = "[\\s|-]"
     const refName = "<divider>"
     const match3Numbers = "\\b\\d{3}\\b"
     const match4Numbers = "\\b\\d{4}\\b"
 
     // const pattern = /(?<phone>\+359(?<divider>[\s|-])2(?:\k<divider>)(?:\b\d{3}\b)(?:\k<divider>)(?:\b\d{4}\b))/g
-    const pattern = new RegExp(`(${matchCode}(?${refName}${matchSeparator})2(?:\\k${refName})(?:${match3Numbers})(?:\\k${refName})(?:${match4Numbers}))`, "g")
+    const pattern = new RegExp(`(?<phone>${matchCode}(?${refName}${matchSeparator})2(?:\\k${refName})(?:${match3Numbers})(?:\\k${refName})(?:${match4Numbers}))`, "g")
 
     let result = pattern.exec(input)
     names = []
