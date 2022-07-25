@@ -1,7 +1,6 @@
-// 83 of 100
 function solve(input) {
     const text = input[0]
-    const pattern = /(?<wrap>\||#)(?<name>[A-Za-z ]+)\1(?<date>[0-9]{2}\/[0-9]{2}\/[0-9]{2})\1(?<calories>[0-9]{0,})\1/g
+    const pattern = /(?<wrap>\||#)(?<name>[A-Za-z ]+)\1(?<date>[0-9]{2}\/[0-9]{2}\/[0-9]{2})\1(?<calories>[0-9]{1,})\1/g
     let result = pattern.exec(text)
 
     let calories = 0
