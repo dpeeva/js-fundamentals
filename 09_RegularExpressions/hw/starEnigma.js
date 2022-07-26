@@ -1,4 +1,4 @@
-// 70 of 100
+// 80 of 100
 function solve(input) {
     const data = input.slice(1)
     const applyLetters = (text) => {
@@ -42,9 +42,9 @@ function solve(input) {
 
     })
     console.log(`Attacked planets: ${attackedPlanets.length}`)
-    attackedPlanets.map(p => console.log(`-> ${p}`))
+    attackedPlanets.sort((a, b) => a.localeCompare(b)).map(p => console.log(`-> ${p}`))
     console.log(`Destroyed planets: ${destroyedPlanets.length}`)
-    destroyedPlanets.map(p => console.log(`-> ${p}`))
+    destroyedPlanets.sort((a, b) => a.localeCompare(b)).map(p => console.log(`-> ${p}`))
 }
 
 solve([
