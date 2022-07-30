@@ -21,3 +21,8 @@ solve('C:\\Internal\\training-internal\\Template.pptx')
 solve('C:\\Projects\\Data-Structures\\LinkedList.cs')
 // File name: LinkedList
 // File extension: cs
+
+// Borderline cases
+solve('C:\\Projects\\Data-Structures\\LinkedTemplate.bak.pptx')
+// File name: LinkedTemplate.bak
+// File extension: pptx
